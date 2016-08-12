@@ -22,42 +22,54 @@ module.exports = function (grunt) {
     clean: {
       build: ['<%= paths.dest.dir %>']
     },
+    copy: {
+      main: {
+        expand: true,
+        flatten: true,
+        src: 'src/modules/index.html',
+        dest: 'dist/'
+      }
+    },
     webpack: {
       dev: {
         entry: '<%= paths.src.dir %>modules/index.js',
+
         output: {
           path: '<%= paths.dest.dir %>',
-          filename: 'app.js'
+          filename: 'app.bundle.js'
         },
-        watch: true,
-        keepalive: true
-      },
-      test: {
+        module: {
+          loaders: [
+            {test: /\.json$/, loader: 'json-loader'},
+            {test: /\.html$/, loader: 'html?attrs=img:src img:data-src'}
+            //{test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!sass'), exclude: /oldie.scss$/}
+            //{test: /\.(png|jpg|jpeg|gif)$/, loader: 'url?limit=8192'},
+            //{test: /\.woff$/, loader: 'url?limit=8192&minetype=application/font-woff'},
+            //{test: /\.ttf$/, loader: 'url?limit==8192&minetype=application/octet-stream'},
+            //{test: /\.svg$/, loader: 'url?limit=8192&minetype=image/svg+xml'},
+            //{test: /\.eot$/, loader: 'file'}
+          ]
+          //,
+          //postLoaders: options.postLoaders || []
+        }
 
-      }
+        //,
+        //watch: true,
+        //keepalive: true
+      },
+      test: {}
     },
     'webpack-dev-server': {
-      local: {
-        webpack: {
-          debug: true,
-          devtool: '#eval',
-          entry: {
-            main: [
-              'webpack-dev-server/client?http://localhost:9199'
-            ]
-          },
-          env: 'local'
-        },
+      dev: {
         contentBase: './dist/',
         publicPath: '/',
         port: 9999,
         host: '0.0.0.0',
-        inline: true,
+        //inline: true,
         stats: {
           colors: true,
           progress: true
         },
-        watch: true,
         keepalive: true
       }
     }
@@ -79,7 +91,7 @@ module.exports = function (grunt) {
   // Grunt tasks
   // --------------------------
   grunt.registerTask('run',
-    ['jshint', 'todo', 'clean', 'copy', 'webpack-dev-server:local', 'watch']
+    ['clean', 'copy', 'webpack:dev', 'webpack-dev-server:dev']
   );
 
   grunt.registerTask('test',
@@ -87,7 +99,7 @@ module.exports = function (grunt) {
   );
 
   grunt.registerTask('build',
-    ['clean', 'webpack:dev']
+    ['clean', 'copy', 'webpack:dev']
   );
 
   grunt.registerTask('default',
