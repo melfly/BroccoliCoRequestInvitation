@@ -28,6 +28,12 @@ module.exports = function (grunt) {
         flatten: true,
         src: 'src/modules/index.html',
         dest: 'dist/'
+      },
+      css: {
+        expand: true,
+        flatten: true,
+        src: 'src/modules/style.css',
+        dest: 'dist/'
       }
     },
     webpack: {

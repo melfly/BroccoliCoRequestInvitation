@@ -4,8 +4,6 @@
 'use strict'
 
 require('angular');
-var mod = angular.module('requestInvitationApp', []);
-console.log('initializing angular');
-mod.controller('testController', ['$scope', function($scope) {
-  $scope.text = 'This is from angular';
-}]);
+require('./core/coreController');
+require('./modal/modalService');
+var mod = angular.module('requestInvitationApp', ['core', 'modal']);

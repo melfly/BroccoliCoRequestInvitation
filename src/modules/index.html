@@ -4,10 +4,25 @@
     <meta charset="UTF-8">
     <title></title>
     <script src="app.bundle.js"></script>
+    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-<div ng-controller="testController as ctrl">
-    {{text}}
+
+<div class="header">
+    <div>BROCCOLI & CO</div>
+</div>
+
+<div class="content" ng-controller="coreController as ctrl">
+    <div>
+        <h1>A better way<br/>to enjoy everyday.</h1>
+        <p>Be the first to invite</p>
+    </div>
+    <button class="request-button" ng-click="ctrl.openForm()">Request a invite</button>
+</div>
+
+<div class="footer">
+    <div>Copyright @ 2016<br/>Copyright @ 2016</div>
 </div>
 </body>
 </html>
