@@ -1,3 +1,17 @@
+$standard-border: 2px solid black;
+
+@mixin flex-column {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+}
+
+@mixin flex-centralize {
+  justify-content: center;
+  align-items: center;
+}
+
 html {
   height: 100%;
 }
@@ -13,24 +27,20 @@ body {
   display: flex;
   flex-grow: 1;
   align-items: center;
-  border-bottom: 2px solid black;
+  border-bottom: $standard-border;
 }
 
 .content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @include flex-column;
+  @include flex-centralize;
   flex-grow: 10;
 }
 
 .footer {
-  border-top: 2px solid black;
+  border-top: $standard-border;
   flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @include flex-column;
+  @include flex-centralize;
 }
 
 h1 {
