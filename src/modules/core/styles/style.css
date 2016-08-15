@@ -45,15 +45,10 @@ p {
     font-size: 1.5em;
 }
 
-.form-input {
-    width: 100%;
-    margin-top: 2%;
-}
-
 .form-submit {
     width: 100%;
 }
 
-input.ng-invalid.ng-touched {
-    border: 2px solid red;
+.modal-footer button {
+    width: 100%
 }

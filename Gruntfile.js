@@ -32,13 +32,13 @@ module.exports = function (grunt) {
       css: {
         expand: true,
         flatten: true,
-        src: 'src/modules/style.css',
+        src: 'src/modules/core/styles/*.css',
         dest: 'dist/'
       }
     },
     webpack: {
       dev: {
-        entry: '<%= paths.src.dir %>modules/index.js',
+        entry: '<%= paths.src.dir %>modules/core/coreController.js',
 
         output: {
           path: '<%= paths.dest.dir %>',
@@ -58,8 +58,7 @@ module.exports = function (grunt) {
           //,
           //postLoaders: options.postLoaders || []
         }
-
-        //,
+        ////,
         //watch: true,
         //keepalive: true
       },
@@ -75,8 +74,18 @@ module.exports = function (grunt) {
         stats: {
           colors: true,
           progress: true
-        },
-        keepalive: true
+        }
+        //,
+        //keepalive: true
+      }
+    },
+    watch: {
+      dev: {
+        files: ["src/modules/**/*"],
+        tasks: ["copy", "webpack:dev"],
+        options: {
+          spawn: true
+        }
       }
     }
   });
@@ -97,12 +106,12 @@ module.exports = function (grunt) {
   // Grunt tasks
   // --------------------------
   grunt.registerTask('run',
-    ['clean', 'copy', 'webpack:dev', 'webpack-dev-server:dev']
+    ['clean', 'copy', 'webpack:dev', 'webpack-dev-server:dev', 'watch:dev']
   );
 
-  grunt.registerTask('test',
-    ['jshint', 'clean', 'webpack:test', 'karma:unit']
-  );
+  //grunt.registerTask('test',
+  //  ['jshint', 'clean', 'webpack:test', 'karma:unit']
+  //);
 
   grunt.registerTask('build',
     ['clean', 'copy', 'webpack:dev']
