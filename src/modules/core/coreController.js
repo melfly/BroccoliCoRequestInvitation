@@ -6,6 +6,7 @@
 require('angular');
 require('../inputModal/inputModalService');
 require('../successModal/successModalService');
+require('./styles/style.scss'); //require stylesheets for webpack
 
 var mod = angular.module('requestInvitationApp', ['inputModal', 'successModal']);
 

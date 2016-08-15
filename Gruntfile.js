@@ -8,9 +8,6 @@ module.exports = function (grunt) {
       },
       config: {
         dir: 'config/',
-        jscs: '<%= paths.config.dir %>jscs/.jscsrc',
-        jshint: '<%= paths.config.dir %>jshint/.jshintrc',
-        webpack: '<%= paths.config.dir %>webpack/webpack.config.js'
       },
       src: {
         dir: './src/'
@@ -37,32 +34,26 @@ module.exports = function (grunt) {
       }
     },
     webpack: {
-      dev: {
-        entry: '<%= paths.src.dir %>modules/core/coreController.js',
-
-        output: {
-          path: '<%= paths.dest.dir %>',
-          filename: 'app.bundle.js'
-        },
-        module: {
-          loaders: [
-            {test: /\.json$/, loader: 'json-loader'},
-            {test: /\.html$/, loader: 'html?attrs=img:src img:data-src'}
-            //{test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!sass'), exclude: /oldie.scss$/}
-            //{test: /\.(png|jpg|jpeg|gif)$/, loader: 'url?limit=8192'},
-            //{test: /\.woff$/, loader: 'url?limit=8192&minetype=application/font-woff'},
-            //{test: /\.ttf$/, loader: 'url?limit==8192&minetype=application/octet-stream'},
-            //{test: /\.svg$/, loader: 'url?limit=8192&minetype=image/svg+xml'},
-            //{test: /\.eot$/, loader: 'file'}
+      dev: function () {
+        var ExtractTextPlugin = require('extract-text-webpack-plugin');
+        return {
+          entry: '<%= paths.src.dir %>modules/core/coreController.js',
+          output: {
+            path: '<%= paths.dest.dir %>',
+            filename: 'app.bundle.js'
+          },
+          module: {
+            loaders: [
+              {test: /\.json$/, loader: 'json-loader'},
+              {test: /\.html$/, loader: 'html?attrs=img:src img:data-src'},
+              {test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!sass')}
+            ]
+          },
+          plugins: [
+            new ExtractTextPlugin("style.css")
           ]
-          //,
-          //postLoaders: options.postLoaders || []
-        }
-        ////,
-        //watch: true,
-        //keepalive: true
-      },
-      test: {}
+        };
+      }()
     },
     'webpack-dev-server': {
       dev: {
@@ -70,13 +61,10 @@ module.exports = function (grunt) {
         publicPath: '/',
         port: 9999,
         host: '0.0.0.0',
-        //inline: true,
         stats: {
           colors: true,
           progress: true
         }
-        //,
-        //keepalive: true
       }
     },
     watch: {
@@ -94,11 +82,8 @@ module.exports = function (grunt) {
   // --------------------------
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-newer');
-  grunt.loadNpmTasks('grunt-todo');
   grunt.loadNpmTasks('grunt-webpack');
   grunt.loadNpmTasks('grunt-protractor-runner');
 

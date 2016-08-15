@@ -32,9 +32,9 @@ mod.controller('modalController', ['$scope', '$uibModalInstance', 'requestInvite
       $scope.serverError = null;
       requestInviteService.sendRequestInvite($scope.fullName, $scope.email).then(function(response){
         $uibModalInstance.close(response);
-        $scope.inProgress = false;
       }, function(error){
         $scope.serverError = error;
+      }).finally(function() {
         $scope.inProgress = false;
       })
     }
