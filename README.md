@@ -1,5 +1,14 @@
 # BroccoliCoRequestInvitation
 
+Dev stack -
+node js 4.x
+angular 1.5
+grunt
+webpack
+protractor
+Jasmine
+
+
 Used flexbox layout instead bootstrap grid system
 Modal component from angular-ui-bootstrap for the pop-up
 Used HTML5 validation to validate length and emails - could use regex for validation if we need to support non-html5-compatible browsers.
