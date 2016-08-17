@@ -30,9 +30,10 @@
 4. Execute `protractor protractor.config.js`
 
 ## Design considerations
-- No unit test was written due to my time constraints. Also there is not much logic in javascript to test.
-- A few e2e automation test were written using protractor/jasmine. It is under **e2e** folder.
-- Running test should really be a grunt task. Again it's not done due to the time I had.
+- No unit tests was written as there is not much logic in javascript and a few e2e automation test should be sufficient to prove it's working. 
+- E2e test is under **e2e** folder.
+- Running test should really be made a grunt task if it was a real project.
 - Used flexbox layout instead bootstrap grid system wherever suitable.
 - Used modal service from angular-ui-bootstrap to implement the pop-ups.
 - Used HTML5 validation on some of form inputs - could use regex for validation if we need to support old browsers.
+- Vaidation erros can be improved by providing specific error message. But I reckon highlighting the field is enough for a simple form like this. 
