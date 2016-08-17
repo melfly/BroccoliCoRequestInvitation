@@ -72,13 +72,11 @@ describe('Input modal', function () {
   it('Should send a POST request to backend server if all fields are valid. ' +
     'If backend service return a error response, display error message on the modal', function () {
     fullNameElem.sendKeys('Gary Zhou');
-    emailElem.sendKeys('');
-    confirmEmailElem.sendKeys('');
-    //var sendBtn = element(by.tagName('button'));
-    //sendBtn.click();
-    //element(by.tagName('h3')).getText().then(function(value) {
-    //  expect(value).toEqual('All done!');
-    //})
+    emailElem.sendKeys('usedemail@airwallex.com');
+    confirmEmailElem.sendKeys('usedemail@airwallex.com');
+    var sendBtn = element(by.tagName('button'));
+    sendBtn.click();
+    expect(element(by.css('text-danger'))).not.toBeNull();
   })
 
 });

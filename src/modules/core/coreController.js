@@ -19,5 +19,6 @@ mod.controller('coreController', ['$scope', 'inputModalService', 'successModalSe
       $scope.result = data;
       successModalService.open();
     });
-  }
+  };
 }]);
+

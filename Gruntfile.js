@@ -3,14 +3,11 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     paths: {
-      node: {
-        dir: './node_modules/'
-      },
-      config: {
-        dir: 'config/',
-      },
       src: {
-        dir: './src/'
+        dir: './src/modules/'
+      },
+      e2e: {
+        dir: './e2e/'
       },
       dest: {
         dir: './dist/'
@@ -23,21 +20,21 @@ module.exports = function (grunt) {
       main: {
         expand: true,
         flatten: true,
-        src: 'src/modules/index.html',
-        dest: 'dist/'
+        src: '<%= paths.src.dir %>index.html',
+        dest: '<%= paths.dest.dir %>'
       },
       css: {
         expand: true,
         flatten: true,
-        src: 'src/modules/core/styles/*.css',
-        dest: 'dist/'
+        src: '<%= paths.src.dir %>core/styles/*.css',
+        dest: '<%= paths.dest.dir %>'
       }
     },
     webpack: {
       dev: function () {
         var ExtractTextPlugin = require('extract-text-webpack-plugin');
         return {
-          entry: '<%= paths.src.dir %>modules/core/coreController.js',
+          entry: '<%= paths.src.dir %>core/coreController.js',
           output: {
             path: '<%= paths.dest.dir %>',
             filename: 'app.bundle.js'
@@ -57,7 +54,7 @@ module.exports = function (grunt) {
     },
     'webpack-dev-server': {
       dev: {
-        contentBase: './dist/',
+        contentBase: '<%= paths.dest.dir %>',
         publicPath: '/',
         port: 9999,
         host: '0.0.0.0',
@@ -69,7 +66,7 @@ module.exports = function (grunt) {
     },
     watch: {
       dev: {
-        files: ["src/modules/**/*"],
+        files: ["<%= paths.src.dir %>**/*"],
         tasks: ["copy", "webpack:dev"],
         options: {
           spawn: true
@@ -83,20 +80,18 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-webpack');
-  grunt.loadNpmTasks('grunt-protractor-runner');
 
 
   // Grunt tasks
   // --------------------------
   grunt.registerTask('run',
-    ['clean', 'copy', 'webpack:dev', 'webpack-dev-server:dev', 'watch:dev']
+    ['build', 'webpack-dev-server:dev', 'watch:dev']
   );
 
-  //grunt.registerTask('test',
-  //  ['jshint', 'clean', 'webpack:test', 'karma:unit']
-  //);
+  grunt.registerTask('test',
+    ['build','protractor_webdriver:all', 'protractor:all']
+  );
 
   grunt.registerTask('build',
     ['clean', 'copy', 'webpack:dev']
