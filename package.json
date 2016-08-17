@@ -8,11 +8,6 @@
     "test": "grunt test",
     "build": "grunt build"
   },
-  "git": {
-    "scripts": {
-      "pre-commit": "grunt test"
-    }
-  },
   "dependencies": {
     "angular": "1.5.8",
     "angular-ui-bootstrap": "^2.0.1"
@@ -31,7 +26,6 @@
     "jasmine-core": "^2.4.1",
     "json-loader": "^0.5.4",
     "node-sass": "^3.8.0",
-    "protractor": "^4.0.3",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.9.10",

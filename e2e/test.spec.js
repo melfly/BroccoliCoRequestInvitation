@@ -70,7 +70,7 @@ describe('Input modal', function () {
   })
 
   it('Should send a POST request to backend server if all fields are valid. ' +
-    'If backend service return a error response, display error message on the modal', function () {
+    'If backend service return an error response, display error message on the input modal', function () {
     fullNameElem.sendKeys('Gary Zhou');
     emailElem.sendKeys('usedemail@airwallex.com');
     confirmEmailElem.sendKeys('usedemail@airwallex.com');
